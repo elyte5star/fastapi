@@ -1,0 +1,232 @@
+[tool.poetry]
+name = "e-shop api"
+version = "1.0"
+description = "e-SHOP"
+license = "Proprietary"
+authors = ["Ogaga Uti <checkuti@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/elyte5star"
+repository = "https://github.com/elyte5star/FastAPI.git"
+
+
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: Proprietary",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+
+[api.params]
+debug = false
+auth_methods = ["LOCAL", "MSAL","GOOGLE","GITHUB"]
+host_url = "http://localhost:8000/"
+log_level = "DEBUG"
+log_file_path="../extreme_api.log"
+max_login_attempts=10
+lock_duration = 15
+cor_origins=["http://localhost:8000/"]
+roles=["ADMIN","USER"]
+pwd_length = 16
+rounds = 10
+encoding = "utf-8"
+enabled_geoip=false
+otp_expiry=30
+failed_login_attempt_count=3
+algorithm = "HS256" 
+secret_key = "295d51726d124a7601036ed4a8116418b8fa78e3188d8d1856d351fd27055d55" 
+refresh_token_expire_min = 43200 #30 days
+token_expire_min = 50 
+client_url= "http://localhost:3000"
+google_issuer = "https://accounts.google.com"
+google_auth_url = "https://accounts.google.com/o/oauth2/auth"
+google_token_url = "https://oauth2.googleapis.com/token"
+google_token_info_url= "https://www.googleapis.com/oauth2/v3/tokeninfo"
+
+
+
+[api.doc]
+description = "Interactive Documentation for e-Market"
+name = "FastAPI Application"
+terms_of_service = "https://github.com/elyte5star/FastAPI.git"
+version = "1.0"
+
+[api.license]
+name = "Proprietary"
+url = "https://github.com/elyte5star"
+
+[api.contact]
+email = "elyte5star@gmail.com"
+name = "Utimore Services AS"
+url =  "https://github.com/elyte5star/FastAPI.git"
+username="elyte5star"
+telephone="889851919"
+password="XXXX"
+mail_port=587
+mail_server="smtp.gmail.com"
+mail_from_name="E-COMMERCE APPLICATION"
+mail_starttls=true
+mail_ssl_tls=false
+
+
+
+
+[database]
+db = "elyte"
+host = "db"
+port = 5432
+pwd = "54321"
+user = "userExample"
+
+[queue.params]
+host_name = "rabbitQ"
+port = "5672"
+pwd = "elyteRQ"
+user = "rabbitUser"
+exchange_name = "elyteExchange"
+exchange_type= "direct"
+queue_names= ["SEARCH", "BOOKING", "LOST_ITEM","MANUAL"]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | tests/.*/setup.py
+)/
+'''
+
+[tool.isort]
+float_to_top = true
+force_single_line = false
+include_trailing_comma = true
+known_third_party = ["fastapi", "pydantic", "starlette","sqlalchemy","fastapi-mail"]
+line_length = 89
+lines_after_imports = 2
+lines_between_sections = 1
+lines_between_types = 0
+profile = "black"
+use_parentheses = true
+
+[flake8]
+max-line-length = 85
+exclude = ["tests/*"]
+max-complexity = 10
+
+
+[tool.mypy]
+plugins = ['pydantic.mypy']
+warn_redundant_casts = true
+
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
+
+
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = {extras = ["email"], version = "^2.10.4"}
+pyconfs = "^0.5.5"
+fastapi = {extras = ["standard"], version = "^0.115.6"}
+aio-pika = "^9.5.4"
+asyncpg = "^0.30.0"
+unicorn = {extras = ["standard"], version = "^2.1.1"}
+bcrypt = "^4.2.1"
+email-validator = "^2.2.0"
+python-multipart = "^0.0.20"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+pydocstyle = "^6.3.0"
+python-dotenv = "^1.0.1"
+apscheduler = "^3.11.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.36"}
+pytz = "^2024.2"
+fastapi-events = {extras = ["otel"], version = "^0.12.2"}
+fastapi-mail = "^1.4.2"
+itsdangerous = "^2.2.0"
+geoip2 = "^4.8.1"
+aiofiles = "^24.1.0"
+jinja2 = "^3.1.5"
+httpagentparser = "^1.9.5"
+toml="0.10.2"
+
+
+[visa.params]
+apiKey = '' #put your api key here
+cert = '' #put the path to the certificate file here
+checkoutCallId = '' #{put your visa checkout callId here}
+key = '' #put the path to the private key here
+mlcClientMessageID = '' #{put your enrollments api client message id here}
+mlcDeviceId = '' #{put your enrollments api device id here}
+mlcIssuerId = '' #{put your enrollments api issuer id here}
+mlcMessageId = '' #{put your locations api message id here}
+mlcPrimaryAccountNumber = '' #{put your enrollments api primary account number here}    
+password = '' #put your password here
+sharedSecret = '' #put your shared secret here
+tnsCardNumbers = '' #{put your visa travel notification service card account numbers here}
+tnsPartnerBid = '' #put your visa travel notification service partner bid here'''
+userId = '' #put your user id here
+vctcTestPan = '' #{put your pan number from test data under consumer rules api -> register a card here}
+visaUrl = '' #put your visa endpoint here
+vtaCommunityCode = '' #{put your vta community code here}
+vtaCreateCustomerAddress = '' #{put your adress from the create customer call here}
+vtaCreateCustomerCardExpiryDate = '' #{put your vta create customer card expiry date here}
+vtaCreateCustomerCardNumber = '' # {put your vta create customer card number here}
+vtaCreateCustomerCardSecurityCode = '' #{put your vta create customer card security code here}
+vtaCreateCustomerIsActive = '' #{put your vta create customer isActive here}
+vtaCreateCustomerLastFour = '' #{put your vta create customer last four here}
+vtaCreateCustomerPreferedCountryCode = '' #{put your vta create customer prefered  country code here}
+vtaCreateCustomerPreferedCurrencyCode = '' #{put your vta create customer prefered  currency code here}
+vtaCreateCustomerPreferedLanguage = '' # {put your vta create customer prefered  language here}
+vtaCreateCustomerPreferedTimeZone = '' #{put your vta create customer prefered  time zone here}
+vtaCustomerId = '' #{put your vta customer id here}
+vtaNotificationContactType = '' #{put your vta notification contact type here}
+vtaPortfolioNumber = '' #{put your portfolio number here}
+vtaPreferredLanguageCode = '' #{put your vta notification preferred language here}
+vtaReplaceCardExpiryDate = '' #{put your vta replace card expiry date here}
+vtaReplaceCardLastFour = '' #{put your vta replace card last 4 digits here}
+vtaReplaceCardNewAddress = '' #{put your vta replace card address here}
+vtaReplaceCardNumber = '' #{put your vta replace card number here}
+vtaReplaceCardSecurityCode = '' #{put your vta replace card security code here}
+vtaServiceId = '' #{put your vta service id here}
+
+
+[build-system]
+requires = ["poetry-core>=1.8"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^6.0.0"
+pytest-mock = "*"
+black = "^24.10.0"
+asyncmock = "^0.4.2"
+sendgrid = "^6.11.0"
+isort = "^5.13.2"
+mypy = "^1.13.0"
+debugpy = "^1.8.11"
+pytest-sugar = "^1.0.0"
+pytest-cov = "^6.0.0"
+flake8 = "^7.1.1"
+locust = "^2.32.4"
+types-requests = "^2.32.0.20241016"

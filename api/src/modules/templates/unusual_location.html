@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+  <table border="0" style="width:100%;background: #ffffff;" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td justify="center" >
+        <table border="0" style="width: 100%;">
+          <tr>
+            <td style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Hey {{username }},</h1>
+              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Unusual sign-in activity.</h1>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table border="0">
+          <tr>
+            <td style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                <p>We detected something unusual about a recent sign-in.</p>
+                <p style="color: red;width: 38em;font-weight: bolder;">Sign-in details:</p>
+                <p>Country/region: <span style="color: black;font-weight: bolder;">{{ country }}</span>.</p>
+                <p>IP addresss: <span style="color: black;font-weight: bolder;">{{ ip }}</span>.</p>
+                <p>Date and time: <span style="color: black;font-weight: bolder;">{{ time }} UTC</span>.</p>
+                <p style="margin: 0;width: auto;">If this was not you,click the link below to reset your password</p>
+                <p><a href="{{ changePassUri }}" style="color: #1a82e2;">RESET YOUR PASSWORD</a></p>
+                <p>Please click the link below if it was you.</p>
+                
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <table border="0">
+                <tr>
+                  <td style="padding: 12px;">
+                    <table border="0">
+                      <tr>
+                        <tr>
+                          <td>
+                            <table border="0">
+                              <tr>
+                                <td style="padding: 12px;">
+                                    <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate" align="center" border="0"> 
+                                    <tr>
+                                      <td style="border:none;border-radius:3px;color:white;padding:15px 19px" align="center" valign="middle" bgcolor="#5865f2"><a href="{{ enableLocationLink }}" style="text-decoration:none;line-height:100%;background:#5865f2;color:white;font-family:Ubuntu,Helvetica,Arial,sans-serif;font-size:15px;font-weight:normal;text-transform:none;margin:0px">
+                                        Verify Login
+                                      </a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+          <!-- start button -->
+          <tr>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
+              <p style="margin: 0;">Cheers,<br> The Team</p>
+            </td>
+          </tr>
+        </table>
+        
+      </td>
+    </tr>
+  </table>
+ 
+    
+  {% endblock %}

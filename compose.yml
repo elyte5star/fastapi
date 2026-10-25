@@ -1,0 +1,78 @@
+networks:
+  elyte_net:
+
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: PostgresCont
+    restart: on-failure
+    environment:
+      - POSTGRES_PASSWORD=54321
+      - POSTGRES_USER=userExample
+      - POSTGRES_DB=elyte
+    ports:
+      - "5432:5432"
+    volumes:
+      # folder to hold the actual db data
+      - ./persistence/data:/var/lib/postgresql/data 
+      # folder to put the other files for import / whatever
+      - ./data:/home/demo_data
+    networks:
+      - elyte_net
+
+  api:
+    container_name: fast-api
+    image: fast-api
+    platform: linux/amd64 # <- Only one working for Apple M1
+    build:
+      context: .
+      dockerfile: ./api.dev.dockerfile
+    networks:
+      - elyte_net
+    ports:
+      # <Port exposed> : < Port running inside container>
+      - "8000:8000"
+    restart: on-failure
+    #depends_on:
+      #- db
+      #- rabbitQ
+    links:
+      - db
+      #- rabbitQ
+    env_file:
+      - .env
+    volumes:
+      - ./api/src:/usr/src
+      - ./logs:/logs
+
+  rabbitmq:
+    hostname: rabbitQ
+    image: rabbitmq:3-management
+    container_name: rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: on-failure
+    networks:
+      - elyte_net
+    environment:
+      - "RABBITMQ_DEFAULT_USER=rabbitUser"
+      - "RABBITMQ_DEFAULT_PASS=elyteRQ"
+      
+  worker:
+    image: worker
+    container_name: main-worker
+    build:
+      context: ./consumer
+      dockerfile: ./worker.dockerfile
+    restart: on-failure
+    env_file:
+      - .env
+    networks:
+      - elyte_net
+    volumes:
+      - ./consumer/src:/usr/src
+    links:
+      - db
+      - rabbitmq
